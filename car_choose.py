@@ -25,7 +25,7 @@ def car_task(path_info):
     for i in path_info:
         if i['many_way'] == True:
             simple = False
-    if simple:
+    if simple or True:
         a = 0
         b = 0
         c = 0
@@ -42,8 +42,8 @@ def car_task(path_info):
         last_start_point = path_info[0]['from']
         last_end_point = path_info[len(path_info)-1]['to']
         for i in path_info:
-            last_distance += path_info[0]['distance']
-            last_time_cost += path_info[0]['time_cost']
+            last_distance += i['distance']
+            last_time_cost += i['time_cost']
 
         type = []
         amount = path_info[0]['amount']
@@ -60,8 +60,11 @@ def car_task(path_info):
                     'to': last_end_point,
                     'type': [path_info[0]['type']],
                     'amount': a,
+
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 continue
             elif amount <= 2*a and amount > a+b:
@@ -75,6 +78,8 @@ def car_task(path_info):
                     'amount': a,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 temp_amount = amount-a
                 full = False
@@ -89,6 +94,8 @@ def car_task(path_info):
                     'amount': temp_amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= a+b and amount > 2*b:
@@ -102,6 +109,8 @@ def car_task(path_info):
                     'amount': a,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 temp_amount = amount-a
                 full = False
@@ -116,6 +125,8 @@ def car_task(path_info):
                     'amount': temp_amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= 2*b and amount > b+c:
@@ -129,6 +140,8 @@ def car_task(path_info):
                     'amount': b,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 temp_amount = amount-b
                 full = False
@@ -143,6 +156,8 @@ def car_task(path_info):
                     'amount': temp_amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= b+c and amount > 2*c:
@@ -156,6 +171,8 @@ def car_task(path_info):
                     'amount': b,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 temp_amount = amount-b
                 full = False
@@ -170,6 +187,8 @@ def car_task(path_info):
                     'amount': temp_amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= 2*c and amount > a:
@@ -182,6 +201,8 @@ def car_task(path_info):
                     'amount': c,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 temp_amount = amount-c
                 full = False
@@ -196,6 +217,8 @@ def car_task(path_info):
                     'amount': temp_amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= a and amount > b:
@@ -211,6 +234,8 @@ def car_task(path_info):
                     'amount': amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= b and amount > c:
@@ -226,6 +251,8 @@ def car_task(path_info):
                     'amount': amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
             elif amount <= c:
@@ -241,6 +268,8 @@ def car_task(path_info):
                     'amount': amount,
                     'earliest_time': path_info[0]['earliest_time'],
                     'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
                 })
                 amount = 0
         for j in car_task_list:

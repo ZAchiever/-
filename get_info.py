@@ -23,14 +23,22 @@ def get_path_list():
     elif not(info_list[3] in all_finished_cargo) and not(info_list[3] in all_raw_cargo):
         print('未知货物请检查')
     # time_limit = info_list[5]-info_list[4]
-    earliest_time = datetime.datetime.strptime(info_list[4], '%Y/%m/%d')
-    latest_time = datetime.datetime.strptime(info_list[5], '%Y/%m/%d')
+    d0 = datetime.datetime.strptime('2018-1-1', '%Y-%m-%d')
+    earliest_time = (datetime.datetime.strptime(
+        info_list[4], '%Y-%m-%d')-d0).days
+    latest_time = (datetime.datetime.strptime(
+        info_list[5], '%Y-%m-%d')-d0).days
+    time_limit = latest_time-earliest_time
+    # import datetime
+    # d1 = datetime.datetime.strptime('2012-03-05', '%Y-%m-%d')
+    # d2 = datetime.datetime.strptime('2012-1-02', '%Y-%m-%d')
+    # delta = d1 - d2
+    # print (delta.days)
+    # print(latest_time-earliest_time)
 
-    earliest_time=info_list[4]
-    latest_time=info_list[5]
-    type=info_list[3]
-    amount=int(info_list[2])
-    route_list = get_path(info_list[0], info_list[1])#返回路径列表
+    type = info_list[3]
+    amount = int(info_list[2])
+    route_list = get_path(info_list[0], info_list[1])  # 返回路径列表
     if len(route_list) == 0:
         print('找不到路径')
     else:
@@ -49,10 +57,10 @@ def get_path_list():
                         'distance': long,
                         'time_cost': 2,  # 说用的时间
                         'by': 'car',  # 使用的方式
-                        'type':type,
-                        'amount':amount,
-                        'earliest_time':earliest_time,
-                        'latest_time':latest_time,
+                        'type': type,
+                        'amount': amount,
+                        'earliest_time': earliest_time,
+                        'latest_time': latest_time,
                     })
                 # print('bpush')
                 total_length.append({
@@ -60,12 +68,12 @@ def get_path_list():
                     'from': route_list[i],
                     'to': route_list[i+1],
                     'distance': point[route_list[i]][route_list[i+1]],
-                    'time_cost': 999,  # 说用的时间
+                    'time_cost': 2,  # 说用的时间
                     'by': 'maybe_car',  # 使用的方式
-                    'type':type,
-                    'amount':amount,
-                    'earliest_time':earliest_time,
-                    'latest_time':latest_time,
+                    'type': type,
+                    'amount': amount,
+                    'earliest_time': earliest_time,
+                    'latest_time': latest_time,
                 })
                 temp_from = False
                 temp_to = False
@@ -80,10 +88,10 @@ def get_path_list():
                     'distance': long,
                     'time_cost': 2,  # 说用的时间
                     'by': 'car',  # 使用的方式
-                    'type':type,
-                    'amount':amount,
-                    'earliest_time':earliest_time,
-                    'latest_time':latest_time,
+                    'type': type,
+                    'amount': amount,
+                    'earliest_time': earliest_time,
+                    'latest_time': latest_time,
                 })
                 temp_from = route_list[i]
                 temp_to = route_list[i+1]
@@ -103,10 +111,10 @@ def get_path_list():
                 'distance': long,
                 'time_cost': 2,  # 说用的时间
                 'by': 'car',  # 使用的方式
-                'type':type,
-                'amount':amount,
-                'earliest_time':earliest_time,
-                'latest_time':latest_time,
+                'type': type,
+                'amount': amount,
+                'earliest_time': earliest_time,
+                'latest_time': latest_time,
             })
         for i in total_length:
             print(i)
@@ -115,4 +123,4 @@ def get_path_list():
 
 # 时间不统一,所有的公司时间流逝不同
 # 车的组合问题
-# 
+#
