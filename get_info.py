@@ -116,8 +116,8 @@ def get_path_list():
                 'earliest_time': earliest_time,
                 'latest_time': latest_time,
             })
-        for i in total_length:
-            print(i)
+        # for i in total_length:
+            # print(i)
         return total_length
 # get_path_list()
 

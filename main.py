@@ -5,7 +5,7 @@ from get_info import get_path_list
 import raw_data as data
 from car_choose import car_task
 # from email import interaction
-from data_read_and_change import change_data
+from data_save import change_data
 
 
 def main():
@@ -21,6 +21,7 @@ def main():
             all_not_full_car_task.append(i)
     for i in all_full_car_task:
         change_data(i)
+    # change_data(all_full_car_task)
 
 
 if __name__ == '__main__':

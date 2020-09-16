@@ -21,7 +21,7 @@ def car_task(path_info):
 
     """
     simple = True  # 是否会经过D点
-    print('aaaaa')
+    # print('aaaaa')
     for i in path_info:
         if i['many_way'] == True:
             simple = False
@@ -50,7 +50,7 @@ def car_task(path_info):
 
         car_task_list = []
         while(amount != 0):
-            print('bbbb')
+            # print('bbbb')
             if amount >= 2*a:
                 amount -= a
                 car_task_list.append({

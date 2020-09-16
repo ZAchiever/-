@@ -26,7 +26,7 @@ def get_path(from_point, to_point):
     done = False
     path_finder(from_point, to_point, 'null')
     result.insert(0, from_point)
-    print(result)
+    # print(result)
     return result
 
 

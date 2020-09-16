@@ -103,8 +103,27 @@ car_c = {
     'empty_cost': 20,
     'full_cost': 15,
 }
+car_all_info = {
+    'A': car_a,
+    'B': car_b,
+    'C': car_c,
+}
 
 
+def get_distance(path):
+    # print(path)
+    if len(path) < 2:
+        return 0
+    else:
+        dis = 2
+        for i in range(0, len(path)-1):
+            dis += point[path[i]][path[i+1]]
+        return dis
 
 
-
+def get_cost(distance, type, empty):
+    is_full = 'full_cost'
+    if empty:
+        is_full = 'empty_cost'
+    cost_rate = car_all_info[type][is_full]/100
+    return cost_rate*distance
