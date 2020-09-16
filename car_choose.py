@@ -129,6 +129,7 @@ def car_task(path_info):
                     'last_distance': last_distance,
                 })
                 amount = 0
+
             elif amount <= 2*b and amount > b+c:
                 # 两个个b车
                 car_task_list.append({
