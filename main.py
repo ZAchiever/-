@@ -6,7 +6,7 @@ import raw_data as data
 from car_choose import car_task
 # from email import interaction
 from data_save import change_data
-from out_put_docs import out_put_doc
+# from out_put_docs import out_put_doc
 from input_info import input_info
 
 
@@ -20,7 +20,7 @@ def main():
     for i in car_task_list:
         last_day = change_data(i, last_day)
 
-    out_put_doc(car_task_list)
+    # out_put_doc(car_task_list)
 
 
 if __name__ == '__main__':

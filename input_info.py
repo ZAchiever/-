@@ -23,7 +23,7 @@ def input_info():
 
     type = info_list[3]
     amount = int(info_list[2])
-
+    DICT = {}
     # DICT = {
     #     "##托运公司##": ,
     #     '##地址##': ,

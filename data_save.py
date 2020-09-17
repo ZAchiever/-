@@ -59,10 +59,13 @@ def change_data(full_car_task, last_day):
                 car_unable = raw_info.split(',')
                 if not set(time_list) & set(car_unable):  # 时间不相交可以选司机了
                     time_add = set(time_list) | set(car_unable)
+                    # time_add.remove('nan')
                     new_time_unable = ''
                     for k in time_add:
+
                         if new_time_unable:
-                            new_time_unable = new_time_unable+','+k
+                            if str(k) != 'nan':
+                                new_time_unable = new_time_unable+','+k
                         else:
                             new_time_unable = k
                     driver_alive = []
@@ -73,10 +76,12 @@ def change_data(full_car_task, last_day):
                         if not set(time_list) & set(driver_unable_time):  # 抓走合适的司机
                             driver_time_add = set(time_list) | set(
                                 driver_unable_time)
+                            # driver_time_add.remove('nan')
                             new_driver_time_unable = ''
                             for k in time_add:
                                 if new_driver_time_unable:
-                                    new_driver_time_unable = new_time_unable+','+k
+                                    if str(k) != 'nan':
+                                        new_driver_time_unable = new_time_unable+','+k
                                 else:
                                     new_driver_time_unable = k
                             driver_total_time = int(
@@ -104,13 +109,13 @@ def change_data(full_car_task, last_day):
                                         full_car_task['last_distance'], car_type, False)
 
                                     history.loc[len(
-                                        all_history), 'driver'] = str(driver_alive[0])+','+driver_alive[1]
+                                        all_history), 'driver'] = str(driver_alive[0])+','+str(driver_alive[1])
                                     history.loc[len(all_history), 'date'] = str(
                                         datetime.datetime(2018, 1, 1)+datetime.timedelta(days=t))
                                     history.loc[len(all_history), 'all_p'] = history.loc[len(
                                         all_history), 'empty_p_cost']+get_cost(full_car_task['last_distance'], car_type, False)
-                                    history.loc[len(all_history), 'by'] = history.loc[len(
-                                        all_history), car_type]
+                                    history.loc[len(all_history),
+                                                'by'] = i
                                     car.loc[i, 'work_day'] = new_time_unable
                                     car.loc[i, 'last_point'] = full_car_task['to']
                                     car.loc[i, 'total_distance'] = car.loc[i, 'total_distance'] + \
