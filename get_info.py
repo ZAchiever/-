@@ -36,7 +36,7 @@ def get_path_list(info):
     # print (delta.days)
     # print(latest_time-earliest_time)
 
-    type = info_list[3]
+    typess = info_list[3]
     amount = int(info_list[2])
     route_list = get_path(info_list[0], info_list[1])  # 返回路径列表
     if len(route_list) == 0:
@@ -57,13 +57,13 @@ def get_path_list(info):
                         'distance': long,
                         'time_cost': 2,  # 说用的时间
                         'by': 'car',  # 使用的方式
-                        'type': type,
+                        'type': typess,
                         'amount': amount,
                         'earliest_time': earliest_time,
                         'latest_time': latest_time,
                     }
                     total_length.append(temp_dic)
-                    earliest_time += temp_dic['time_cost']
+                    # earliest_time += temp_dic['time_cost']
                 # print('bpush')
                 temp_dic = {
                     'many_way': True,  # 是否可以有多种方式
@@ -72,13 +72,13 @@ def get_path_list(info):
                     'distance': point[route_list[i]][route_list[i+1]],
                     'time_cost': 2 if time_limit < 6 else 3,  # 说用的时间
                     'by': 'car' if time_limit < 6 else 'train',  # 使用的方式
-                    'type': type,
+                    'type': typess,
                     'amount': amount,
                     'earliest_time': earliest_time,
                     'latest_time': latest_time,
                 }
                 total_length.append(temp_dic)
-                earliest_time += temp_dic['time_cost']
+                # earliest_time += temp_dic['time_cost']
                 temp_from = False
                 temp_to = False
                 long = 0
@@ -91,13 +91,13 @@ def get_path_list(info):
                     'distance': long,
                     'time_cost': 2,  # 说用的时间
                     'by': 'car',  # 使用的方式
-                    'type': type,
+                    'type': typess,
                     'amount': amount,
                     'earliest_time': earliest_time,
                     'latest_time': latest_time,
                 }
                 total_length.append(temp_dic)
-                earliest_time += temp_dic['time_cost']
+                # earliest_time += temp_dic['time_cost']
                 temp_from = route_list[i]
                 temp_to = route_list[i+1]
                 long = point[route_list[i]][route_list[i+1]]
@@ -117,16 +117,16 @@ def get_path_list(info):
                 'distance': long,
                 'time_cost': 2,  # 说用的时间
                 'by': 'car',  # 使用的方式
-                'type': type,
+                'type': typess,
                 'amount': amount,
                 'earliest_time': earliest_time,
                 'latest_time': latest_time,
             }
             total_length.append(temp_dic)
-            earliest_time += temp_dic['time_cost']
+            # earliest_time += temp_dic['time_cost']
         # for i in total_length:
             # print(i)
-        return total_length
+        return total_length, typess
 # get_path_list()
 
 # 时间不统一,所有的公司时间流逝不同

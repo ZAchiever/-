@@ -280,6 +280,7 @@ def car_task(path_info):
         need_add_time = 0
         last_return = []
         for i in path_info:
+            earliest_time = i['earliest_time']+need_add_time
             if i['by'] == 'car':
                 a = 0
                 b = 0
@@ -300,6 +301,7 @@ def car_task(path_info):
                 amount = i['amount']
 
                 car_task_list = []
+
                 while(amount != 0):
                     # print('bbbb')
                     if amount >= 2*a:
@@ -312,7 +314,7 @@ def car_task(path_info):
                             'type': [i['type']],
                             'amount': a,
 
-                            'earliest_time': i['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': i['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -327,7 +329,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': a,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -343,7 +345,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': temp_amount,
-                            'earliest_time': path_info[0]['earliest_time'],
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -358,7 +360,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': a,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -374,7 +376,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': temp_amount,
-                            'earliest_time': path_info[0]['earliest_time'],
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -390,7 +392,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': b,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -406,7 +408,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': temp_amount,
-                            'earliest_time': path_info[0]['earliest_time'],
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -421,7 +423,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': b,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -437,7 +439,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': temp_amount,
-                            'earliest_time': path_info[0]['earliest_time'],
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -451,7 +453,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': c,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -467,7 +469,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': temp_amount,
-                            'earliest_time': path_info[0]['earliest_time'],
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -484,7 +486,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': amount,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -501,7 +503,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [path_info[0]['type']],
                             'amount': amount,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -518,7 +520,7 @@ def car_task(path_info):
                             'to': last_end_point,
                             'type': [i['type']],
                             'amount': amount,
-                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'earliest_time': earliest_time,
                             'latest_time': path_info[0]['latest_time'],
                             'last_time_cost': last_time_cost,
                             'last_distance': last_distance,
@@ -540,7 +542,7 @@ def car_task(path_info):
                     'to': last_end_point,
                     'type': [i['type']],
                     'amount': i['amount'],
-                    'earliest_time': i['earliest_time']+need_add_time,
+                    'earliest_time': earliest_time,
                     'latest_time': i['latest_time'],
                     'last_time_cost': i['time_cost'],
                     'last_distance': i['distance'],
