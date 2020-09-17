@@ -25,7 +25,7 @@ def car_task(path_info):
     for i in path_info:
         if i['many_way'] == True:
             simple = False
-    if simple or True:
+    if simple:  # 纯陆运路段
         a = 0
         b = 0
         c = 0
@@ -276,3 +276,271 @@ def car_task(path_info):
         for j in car_task_list:
             print(j)
         return car_task_list
+    else:
+        need_add_time = 0
+        last_return = []
+        for i in path_info:
+            if i['by'] == 'car':
+                a = 0
+                b = 0
+                c = 0
+                if i['type'] in ['P1', 'P2', 'P3', 'P4']:
+                    a = data.car_a['amount_finished']
+                    b = data.car_b['amount_finished']
+                    c = data.car_c['amount_finished']
+                else:
+                    a = data.car_a['amount_raw']
+                    b = data.car_b['amount_raw']
+                    c = data.car_c['amount_raw']
+                last_time_cost = i['time_cost']
+                last_distance = i['distance']
+                last_start_point = i['from']
+                last_end_point = i['to']
+                type = []
+                amount = i['amount']
+
+                car_task_list = []
+                while(amount != 0):
+                    # print('bbbb')
+                    if amount >= 2*a:
+                        amount -= a
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'A',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [i['type']],
+                            'amount': a,
+
+                            'earliest_time': i['earliest_time']+need_add_time,
+                            'latest_time': i['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        continue
+                    elif amount <= 2*a and amount > a+b:
+                        # 两a
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'A',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': a,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        temp_amount = amount-a
+                        full = False
+                        if temp_amount == a:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'A',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': temp_amount,
+                            'earliest_time': path_info[0]['earliest_time'],
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= a+b and amount > 2*b:
+                        # 1a 1b
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'A',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': a,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        temp_amount = amount-a
+                        full = False
+                        if temp_amount == b:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'B',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': temp_amount,
+                            'earliest_time': path_info[0]['earliest_time'],
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+
+                    elif amount <= 2*b and amount > b+c:
+                        # 两个个b车
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'B',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': b,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        temp_amount = amount-b
+                        full = False
+                        if temp_amount == b:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'B',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': temp_amount,
+                            'earliest_time': path_info[0]['earliest_time'],
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= b+c and amount > 2*c:
+                        # 1b 1c
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'B',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': b,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        temp_amount = amount-b
+                        full = False
+                        if temp_amount == c:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'C',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': temp_amount,
+                            'earliest_time': path_info[0]['earliest_time'],
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= 2*c and amount > a:
+                        car_task_list.append({
+                            'full': True,
+                            'car_type': 'C',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': c,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        temp_amount = amount-c
+                        full = False
+                        if temp_amount == c:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'C',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': temp_amount,
+                            'earliest_time': path_info[0]['earliest_time'],
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= a and amount > b:
+                        full = False
+                        if temp_amount == a:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'A',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': amount,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= b and amount > c:
+                        full = False
+                        if temp_amount == b:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'B',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [path_info[0]['type']],
+                            'amount': amount,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                    elif amount <= c:
+                        full = False
+                        if temp_amount == c:
+                            full = True
+                        car_task_list.append({
+                            'full': full,
+                            'car_type': 'C',
+                            'from': last_start_point,
+                            'to': last_end_point,
+                            'type': [i['type']],
+                            'amount': amount,
+                            'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                            'latest_time': path_info[0]['latest_time'],
+                            'last_time_cost': last_time_cost,
+                            'last_distance': last_distance,
+                        })
+                        amount = 0
+                for j in car_task_list:
+                    print(j)
+                need_add_time += i['time_cost']
+                last_return = car_task_list+last_return
+            elif i['by'] == 'train':
+                need_add_time += i['time_cost']
+                last_return.append({
+                    'full': full,
+                    'car_type': 'train',
+                    'from': last_start_point,
+                    'to': last_end_point,
+                    'type': [i['type']],
+                    'amount': amount,
+                    'earliest_time': path_info[0]['earliest_time']+need_add_time,
+                    'latest_time': path_info[0]['latest_time'],
+                    'last_time_cost': last_time_cost,
+                    'last_distance': last_distance,
+                })
+
+        return last_return

@@ -6,7 +6,7 @@ from raw_data import point
 import datetime
 
 
-def get_path_list():
+def get_path_list(info):
     """获取外部输入信息并返回一个汽车每段的轨迹.
     由于从O到三个分支的时间一样因此分段
     Args:
@@ -15,7 +15,7 @@ def get_path_list():
         一个list,每个元素是一段路程字典包括,起点、终点、所需时间、使用的方式
         由于有些路段可以选择水路和铁路所以设置为999.
     """
-    info = input('请依次输入起点,终点,数量,种类,最早提货时间,最晚到货时间\n用空格隔开')
+    # info = input('请依次输入起点,终点,数量,种类,最早提货时间,最晚到货时间\n用空格隔开')
     info_list = info.split()
     print(info_list)
     if not(info_list[0] in all_point) or not(info_list[1] in all_point):
@@ -50,7 +50,7 @@ def get_path_list():
             if route_list[i] == 'D' or route_list[i+1] == 'D' or route_list[i] == 'E' or route_list[i+1] == 'E':
                 if route_list[i+1] == 'D' and temp_to != 'D':
                     # print('apush')
-                    total_length.append({
+                    temp_dic = {
                         'many_way': False,  # 是否可以有多种方式
                         'from': temp_from,
                         'to': temp_to,
@@ -61,27 +61,30 @@ def get_path_list():
                         'amount': amount,
                         'earliest_time': earliest_time,
                         'latest_time': latest_time,
-                    })
+                    }
+                    total_length.append(temp_dic)
+                    earliest_time += temp_dic['time_cost']
                 # print('bpush')
-                total_length.append({
+                temp_dic = {
                     'many_way': True,  # 是否可以有多种方式
                     'from': route_list[i],
                     'to': route_list[i+1],
                     'distance': point[route_list[i]][route_list[i+1]],
-                    'time_cost': 2,  # 说用的时间
-                    'by': 'maybe_car',  # 使用的方式
+                    'time_cost': 2 if time_limit > 6 else 3,  # 说用的时间
+                    'by': 'car' if time_limit > 6 else 'train',  # 使用的方式
                     'type': type,
                     'amount': amount,
                     'earliest_time': earliest_time,
                     'latest_time': latest_time,
-                })
+                }
+                total_length.append(temp_dic)
+                earliest_time += temp_dic['time_cost']
                 temp_from = False
                 temp_to = False
                 long = 0
 
             elif (route_list[i] == 'A_O' or route_list[i] == 'B_O') and (i != 0 and i != len(route_list)-1) and (temp_from and temp_to):
-                # print('cpush')
-                total_length.append({
+                temp_dic = {
                     'many_way': False,  # 是否可以有多种方式
                     'from': temp_from,
                     'to': temp_to,
@@ -92,7 +95,9 @@ def get_path_list():
                     'amount': amount,
                     'earliest_time': earliest_time,
                     'latest_time': latest_time,
-                })
+                }
+                total_length.append(temp_dic)
+                earliest_time += temp_dic['time_cost']
                 temp_from = route_list[i]
                 temp_to = route_list[i+1]
                 long = point[route_list[i]][route_list[i+1]]
@@ -104,7 +109,8 @@ def get_path_list():
                 long += point[route_list[i]][route_list[i+1]]
         if temp_from and temp_to:
             # print('dpush')
-            total_length.append({
+
+            temp_dic = {
                 'many_way': False,  # 是否可以有多种方式
                 'from': temp_from,
                 'to': temp_to,
@@ -115,7 +121,9 @@ def get_path_list():
                 'amount': amount,
                 'earliest_time': earliest_time,
                 'latest_time': latest_time,
-            })
+            }
+            total_length.append(temp_dic)
+            earliest_time += temp_dic['time_cost']
         # for i in total_length:
             # print(i)
         return total_length
