@@ -36,7 +36,7 @@ def change_data(full_car_task, last_day):
         car_type = full_car_task['car_type']
         cars = []  # 所有对应种类的车型
         for i in all_car:
-            if i[0] == car_type:
+            if i == car_type:
                 cars.append(i)
         close_car = sorted(cars, key=lambda i: get_distance(
             get_path(car.loc[i, 'last_point'], full_car_task['from'])))  # 按距离排序

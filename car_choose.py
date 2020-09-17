@@ -273,8 +273,8 @@ def car_task(path_info):
                     'last_distance': last_distance,
                 })
                 amount = 0
-        for j in car_task_list:
-            print(j)
+        # for j in car_task_list:
+        #     print(j)
         return car_task_list
     else:
         need_add_time = 0
@@ -524,11 +524,14 @@ def car_task(path_info):
                             'last_distance': last_distance,
                         })
                         amount = 0
-                for j in car_task_list:
-                    print(j)
+                # for j in car_task_list:
+                #     print(j)
                 need_add_time += i['time_cost']
-                last_return = car_task_list+last_return
+                last_return = last_return+car_task_list
             elif i['by'] == 'train':
+                full = True
+                last_start_point = i['from']
+                last_end_point = i['to']
                 need_add_time += i['time_cost']
                 last_return.append({
                     'full': full,
@@ -536,11 +539,11 @@ def car_task(path_info):
                     'from': last_start_point,
                     'to': last_end_point,
                     'type': [i['type']],
-                    'amount': amount,
-                    'earliest_time': path_info[0]['earliest_time']+need_add_time,
-                    'latest_time': path_info[0]['latest_time'],
-                    'last_time_cost': last_time_cost,
-                    'last_distance': last_distance,
+                    'amount': i['amount'],
+                    'earliest_time': i['earliest_time']+need_add_time,
+                    'latest_time': i['latest_time'],
+                    'last_time_cost': i['time_cost'],
+                    'last_distance': i['distance'],
                 })
 
         return last_return

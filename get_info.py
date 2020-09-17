@@ -48,7 +48,7 @@ def get_path_list(info):
         temp_to = False
         for i in range(0, len(route_list)-1):
             if route_list[i] == 'D' or route_list[i+1] == 'D' or route_list[i] == 'E' or route_list[i+1] == 'E':
-                if route_list[i+1] == 'D' and temp_to != 'D':
+                if route_list[i+1] == 'D' and temp_to != 'D' and temp_from and temp_to:
                     # print('apush')
                     temp_dic = {
                         'many_way': False,  # 是否可以有多种方式
@@ -70,8 +70,8 @@ def get_path_list(info):
                     'from': route_list[i],
                     'to': route_list[i+1],
                     'distance': point[route_list[i]][route_list[i+1]],
-                    'time_cost': 2 if time_limit > 6 else 3,  # 说用的时间
-                    'by': 'car' if time_limit > 6 else 'train',  # 使用的方式
+                    'time_cost': 2 if time_limit < 6 else 3,  # 说用的时间
+                    'by': 'car' if time_limit < 6 else 'train',  # 使用的方式
                     'type': type,
                     'amount': amount,
                     'earliest_time': earliest_time,
