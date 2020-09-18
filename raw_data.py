@@ -113,6 +113,7 @@ car_all_info = {
 
 def get_distance(path):
     # print(path)
+    dis = 0
     if len(path) < 2:
         return 0
     else:

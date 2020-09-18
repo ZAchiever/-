@@ -23,6 +23,7 @@ def change_data(full_car_task, last_day):
         history.to_excel('storage\\history.xlsx')
 
     else:
+        print('开始记录汽车人和历史')
         car = pd.read_excel('storage\\car.xlsx', sheet_name=0, index_col=0)
         driver = pd.read_excel('storage\\driver.xlsx',
                                sheet_name=0, index_col=0)
@@ -36,11 +37,14 @@ def change_data(full_car_task, last_day):
         car_type = full_car_task['car_type']
         cars = []  # 所有对应种类的车型
         for i in all_car:
-            if i == car_type:
+            if i[0] == car_type:
                 cars.append(i)
+        print(cars)
         close_car = sorted(cars, key=lambda i: get_distance(
             get_path(car.loc[i, 'last_point'], full_car_task['from'])))  # 按距离排序
+        print(close_car)
         for i in close_car:  # 按距离遍历寻找最优可以接单的car
+            print(i)
             empty_car_distance = get_path(
                 car.loc[i, 'last_point'], full_car_task['from'])
             empty_car_distance = get_distance(empty_car_distance)
@@ -57,7 +61,11 @@ def change_data(full_car_task, last_day):
                     time_list.append(str(k))
                 raw_info = str(car.loc[i, 'work_day'])
                 car_unable = raw_info.split(',')
+                print('时间合集'+str(set(time_list) & set(car_unable)))
+                print(set(time_list))
+                print(set(car_unable))
                 if not set(time_list) & set(car_unable):  # 时间不相交可以选司机了
+                    print('找到时间不想交的汽车了')
                     time_add = set(time_list) | set(car_unable)
                     # time_add.remove('nan')
                     new_time_unable = ''
@@ -74,6 +82,7 @@ def change_data(full_car_task, last_day):
                         driver_unable_time = driver_raw_info.split(',')
 
                         if not set(time_list) & set(driver_unable_time):  # 抓走合适的司机
+                            print('找到时间不想交的司机了了')
                             driver_time_add = set(time_list) | set(
                                 driver_unable_time)
                             # driver_time_add.remove('nan')

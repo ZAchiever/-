@@ -61,13 +61,13 @@ def main():
                                                            ]*i['last_distance']*i['amount']
         print(i)
 
-    DICT['##大写总价格##'] = data.digital_to_chinese(total_money)
-    DICT['##总价格##'] = str(total_money)
+    # DICT['##大写总价格##'] = data.digital_to_chinese(total_money)
+    # DICT['##总价格##'] = str(total_money)
     last_day = 0
     for i in car_task_list:
         last_day = change_data(i, last_day)
 
-    out_put_doc(DICT)
+    # out_put_doc(DICT)
 
 
 if __name__ == '__main__':
