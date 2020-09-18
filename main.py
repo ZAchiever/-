@@ -11,7 +11,7 @@ from input_info import input_info
 
 DICT = {}
 DICT = {
-    "##托运公司##": '##bug##',
+    '##托运公司##': '##bug##',
     '##地址##': '##bug##',
     '##货物1##': '##bug##',
     '##货物2##': '',

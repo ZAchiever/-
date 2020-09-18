@@ -45,7 +45,8 @@ def check(DICT, doc_name):
 
 def out_put_doc(DICT):
     doc_list = ['合同.docx', '提货单.docx', '托运单.docx']
-    hash_dir = 'all_you_need//'+datetime.datetime.now().strftime('%d_%H_%M')
+    hash_dir = 'all_you_need//'+datetime.datetime.now().strftime('%d_%H_%M') + \
+        DICT['##托运公司##']
     for i in doc_list:
         doc = check(DICT, i)
         mkdir(hash_dir)

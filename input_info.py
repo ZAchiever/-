@@ -33,6 +33,8 @@ def input_info(DICT):
     DICT['##1的数量##'] = str(amount)
     DICT['##from##'] = info_list[0]
     DICT['##to##'] = info_list[1]
+    DICT['##取货时间##'] = info_list[4]
+    DICT['##到货时间##'] = info_list[5]
     DICT['##y##'] = str(datetime.datetime.strptime(
         info_list[4], '%Y-%m-%d').year)
     DICT['##m##'] = str(datetime.datetime.strptime(

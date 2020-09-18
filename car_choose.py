@@ -477,7 +477,8 @@ def car_task(path_info):
                         amount = 0
                     elif amount <= a and amount > b:
                         full = False
-                        if temp_amount == a:
+
+                        if amount == a:
                             full = True
                         car_task_list.append({
                             'full': full,
@@ -494,7 +495,7 @@ def car_task(path_info):
                         amount = 0
                     elif amount <= b and amount > c:
                         full = False
-                        if temp_amount == b:
+                        if amount == b:
                             full = True
                         car_task_list.append({
                             'full': full,
@@ -511,7 +512,7 @@ def car_task(path_info):
                         amount = 0
                     elif amount <= c:
                         full = False
-                        if temp_amount == c:
+                        if amount == c:
                             full = True
                         car_task_list.append({
                             'full': full,
