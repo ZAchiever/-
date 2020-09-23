@@ -8,6 +8,23 @@ import os
 #  datetime.now().strftime( '%d_%H_%M_%S')
 # }
 
+import zipfile
+
+
+# history = pd.read_excel('history.xlsx', sheet_name=0, index_col=0)
+# history.to_excel('storage\\car_2.xlsx')
+
+def zip_file(src_dir):
+    zip_name = src_dir + '.zip'
+    z = zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED)
+    for dirpath, dirnames, filenames in os.walk(src_dir):
+        fpath = dirpath.replace(src_dir, '')
+        fpath = fpath and fpath + os.sep or ''
+        for filename in filenames:
+            z.write(os.path.join(dirpath, filename), fpath+filename)
+            print('==压缩成功==')
+    z.close()
+
 
 def mkdir(path):
 
@@ -50,6 +67,9 @@ def out_put_doc(DICT):
     for i in doc_list:
         doc = check(DICT, i)
         mkdir(hash_dir)
-        doc.save(hash_dir+'//'+i+'.docx')
+        doc.save(hash_dir+'//'+i)
+    zip_file(hash_dir)
+
+
 # print(check(document))
 # document.save('word1.docx')

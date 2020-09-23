@@ -6,7 +6,7 @@ from raw_data import point
 import datetime
 
 
-def get_path_list(info):
+def get_path_list(info, DICT):
     """获取外部输入信息并返回一个汽车每段的轨迹.
     由于从O到三个分支的时间一样因此分段
     Args:
@@ -20,14 +20,14 @@ def get_path_list(info):
     print(info_list)
     if not(info_list[0] in all_point) or not(info_list[1] in all_point):
         print('地点信息不正确,请重新检查')
-    elif not(info_list[3] in all_finished_cargo) and not(info_list[3] in all_raw_cargo):
+    elif not(info_list[2] in all_finished_cargo) and not(info_list[2] in all_raw_cargo):
         print('未知货物请检查')
     # time_limit = info_list[5]-info_list[4]
     d0 = datetime.datetime.strptime('2018-1-1', '%Y-%m-%d')
     earliest_time = (datetime.datetime.strptime(
-        info_list[4], '%Y-%m-%d')-d0).days
+        info_list[3], '%Y-%m-%d')-d0).days
     latest_time = (datetime.datetime.strptime(
-        info_list[5], '%Y-%m-%d')-d0).days
+        info_list[4], '%Y-%m-%d')-d0).days
     time_limit = latest_time-earliest_time
     # import datetime
     # d1 = datetime.datetime.strptime('2012-03-05', '%Y-%m-%d')
@@ -36,8 +36,8 @@ def get_path_list(info):
     # print (delta.days)
     # print(latest_time-earliest_time)
 
-    typess = info_list[3]
-    amount = int(info_list[2])
+    typess = info_list[2]
+    amount = int(DICT['##amount##'])
     route_list = get_path(info_list[0], info_list[1])  # 返回路径列表
     if len(route_list) == 0:
         print('找不到路径')

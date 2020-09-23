@@ -3,11 +3,9 @@ from raw_data import get_distance
 from get_route import get_path
 import datetime
 import pandas as pd
-# history = pd.read_excel('history.xlsx', sheet_name=0, index_col=0)
-# history.to_excel('storage\\car_2.xlsx')
 
 
-def change_data(full_car_task, last_day):
+def change_data(full_car_task, last_day, DICT):
     history = pd.read_excel('storage\\history.xlsx', sheet_name=0, index_col=0)
     all_history = list(history.index)
     if full_car_task['car_type'] == 'train':
@@ -21,7 +19,10 @@ def change_data(full_car_task, last_day):
         history.loc[len(
             all_history), 'by'] = 'train'
         history.to_excel('storage\\history.xlsx')
-
+        ob_date = datetime.datetime.strptime(
+            DICT['##到货时间##'], '%Y-%m-%d')+datetime.timedelta(days=3)
+        DICT['##到货时间##'] = ob_date.strftime(
+            '%Y-%m-%d')
     else:
         print('开始记录汽车人和历史')
         car = pd.read_excel('storage\\car.xlsx', sheet_name=0, index_col=0)
@@ -55,7 +56,7 @@ def change_data(full_car_task, last_day):
                 empty_car_need_time = 4
             elif empty_car_distance >= 820:
                 empty_car_need_time = 6
-            for t in range(earliest_time+empty_car_need_time, latest_time-last_time_cost):
+            for t in range(earliest_time+empty_car_need_time+last_day, latest_time-last_time_cost):
                 time_list = []  # 工作的时间列表
                 for k in range(t, t+last_time_cost):
                     time_list.append(str(k))
@@ -87,7 +88,7 @@ def change_data(full_car_task, last_day):
                                 driver_unable_time)
                             # driver_time_add.remove('nan')
                             new_driver_time_unable = ''
-                            for k in time_add:
+                            for k in driver_unable_time:
                                 if new_driver_time_unable:
                                     if str(k) != 'nan':
                                         new_driver_time_unable = new_time_unable+','+k
@@ -121,8 +122,11 @@ def change_data(full_car_task, last_day):
                                         all_history), 'driver'] = str(driver_alive[0])+','+str(driver_alive[1])
                                     history.loc[len(all_history), 'date'] = str(
                                         datetime.datetime(2018, 1, 1)+datetime.timedelta(days=t))
-                                    history.loc[len(all_history), 'all_p'] = history.loc[len(
-                                        all_history), 'empty_p_cost']+get_cost(full_car_task['last_distance'], car_type, False)
+                                    temp_p = history.loc[len(all_history), 'empty_p_cost']+get_cost(
+                                        full_car_task['last_distance'], car_type, False)
+                                    history.loc[len(all_history),
+                                                'all_p'] = temp_p
+                                    DICT['total_p'] = DICT['total_p']+temp_p
                                     history.loc[len(all_history),
                                                 'by'] = i
                                     car.loc[i, 'work_day'] = new_time_unable
@@ -140,5 +144,13 @@ def change_data(full_car_task, last_day):
                                     car.to_excel('storage\\car.xlsx')
                                     driver.to_excel('storage\\driver.xlsx')
                                     history.to_excel('storage\\history.xlsx')
-                                    return
-    return last_day
+                                    days_my = earliest_time + \
+                                        int(empty_car_need_time) + \
+                                        int(full_car_task['last_time_cost'])+last_day
+                                    print(days_my)
+                                    ob_date = datetime.datetime.strptime(
+                                        '2018-1-1', '%Y-%m-%d')+datetime.timedelta(days=days_my)
+                                    DICT['##到货时间##'] = ob_date.strftime(
+                                        '%Y-%m-%d')
+                                    return last_day, DICT
+    return last_day, DICT
