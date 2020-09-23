@@ -38,7 +38,8 @@ def mkdir(path):
 
 def check(DICT, doc_name):
     # tables
-    document = Document('storage//'+doc_name)
+    document = Document(
+        'storage//'+DICT['##托运公司##']+'_'+DICT['##收货人##']+doc_name)
 
     for table in document.tables:
         for row in range(len(table.rows)):

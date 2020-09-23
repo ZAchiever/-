@@ -72,7 +72,7 @@ def main():
                                                            ]*i['last_distance']*i['amount']
         print(i)
 
-    DICT['##大写总价格##'] = data.digital_to_chinese(total_money)
+    DICT['##大写总价格##'] = data.digital_to_chinese(total_money*1.2)
     DICT['##总价格##'] = str(round(total_money*1.2, 3)) + \
         '(税后价'+str(round(total_money*1.09*1.2, 3))+')'
     last_day = 0
