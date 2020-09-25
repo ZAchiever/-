@@ -8,7 +8,8 @@
 **要点** 不要被想象力限制适当不要脸有奇效，这就算真实的商战这能让你无往不利。
 
 ## 运输
-你若完全不想管这些，点[这里](https://github.com/ZAchiever/Logistics#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
+你若完全不想管这些，点[这里](https://github.com/ZAchiever/Logistics#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)  
+
 以下为运输的的网店分布  
 ![网点分布](https://raw.githubusercontent.com/ZAchiever/Logistics/master/picture/%E6%8D%95%E8%8E%B7.PNG '图片')
 看上去确实很简单，因为点到点之间的路只有一条，看上去就很友好了。  

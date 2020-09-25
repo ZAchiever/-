@@ -39,7 +39,7 @@ def mkdir(path):
 def check(DICT, doc_name):
     # tables
     document = Document(
-        'storage//'+DICT['##托运公司##']+'_'+DICT['##收货人##']+doc_name)
+        'storage//'+doc_name)
 
     for table in document.tables:
         for row in range(len(table.rows)):
@@ -68,7 +68,7 @@ def out_put_doc(DICT):
     for i in doc_list:
         doc = check(DICT, i)
         mkdir(hash_dir)
-        doc.save(hash_dir+'//'+i)
+        doc.save(hash_dir+'//'+DICT['##托运公司##']+'_'+DICT['##收货人##']+i)
     zip_file(hash_dir)
 
 
