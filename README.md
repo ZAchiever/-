@@ -91,11 +91,13 @@
 最后再依次输入 种类 数量
 最后按下enter键就可以输出填制好的合同,提货单,托运单还可以吧运输计划填制好.
 ## 使用方法
-1.下载python(建议下载anaconda,安装是勾选添加python到path)  
+1.下载python(建议下载anaconda,安装是勾选添加python到path)
+![](https://raw.githubusercontent.com/ZAchiever/Logistics/master/picture/%E5%AE%89%E8%A3%85.PNG)  
 
 2.进入cmd,输入pip install python-docx #输入后按enter  
 
-3.下载源代码,解压  
+3.下载源代码,解压
+![](https://raw.githubusercontent.com/ZAchiever/Logistics/master/picture/%E4%B8%8B%E8%BD%BD.PNG)  
 
 4.复制main.py所在的文件夹的路径即main.py在的那个文件夹  
 
@@ -103,7 +105,8 @@
 
 6.输入python main.py  
 
-7.按提示输入  
+7.按提示输入
+![](https://raw.githubusercontent.com/ZAchiever/Logistics/master/picture/%E8%BF%90%E8%A1%8C.PNG)  
 
 8.输出完成后所有表单在文件夹all_you_need里,记录在storage内,_0代表上次的记录(第一次记得删除将初始文件内的东西覆盖到storage内)  
 
